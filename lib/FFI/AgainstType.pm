@@ -14,10 +14,14 @@ ffi_lib do {
   my @modparts = split(/::/,$module);
   my $modfname = $modparts[-1];
   my $modpname = join('/',@modparts);
-  my $c = @modparts + 1;
+  my $c = @modparts;
   $modlibname =~ s,[\\/][^\\/]+$,, while $c--;    # Q&D basename
-  my $file = "$modlibname/arch/auto/$modpname/$modfname.so";
-  print $file, "\n";
+  my $file = "$modlibname/auto/$modpname/$modfname.so";
+  unless(-e $file)
+  {
+    $modlibname =~ s,[\\/][^\\/]+$,,;
+    $file = "$modlibname/arch/auto/$modpname/$modfname.so"
+  }
   \$file;
 };
 

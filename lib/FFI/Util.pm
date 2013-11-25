@@ -5,9 +5,13 @@ use warnings;
 use FFI::Raw 0.18;
 use FFI::Sweet;
 use base qw( Exporter );
+use Scalar::Util qw( refaddr );
 
 # ABSTRACT: Some useful pointer utilities when writing FFI modules
 # VERSION
+
+our @EXPORT_OK = map { "deref_to_$_" } qw( ptr int uint short ushort char uchar float double int64 uint64 );
+push @EXPORT_OK, qw( scalar_to_buffer buffer_to_scalar );
 
 ffi_lib do {
   my($module, $modlibname) = ('FFI::Util', __FILE__);
@@ -39,21 +43,22 @@ attach_function "deref_to_double", [ _ptr ], _double;
 attach_function "deref_to_int64",  [ _ptr ], _int64;
 attach_function "deref_to_uint64", [ _ptr ], _uint64;
 
-our @EXPORT_OK = map { "deref_to_$_" } qw( ptr int uint short ushort char uchar float double int64 uint64 );
-
-sub scalar_to_buffer
+attach_function "scalar_to_buffer", [ _ptr, _ptr, _ptr ], _void, sub
 {
-  my $size = do { use bytes; length $_[0] };
-  my $ptr = unpack 'L!', pack 'P', $_[0];
-  ($ptr, $size)
-}
+  # 0 cb 1 scalar
+  my $ptr  = FFI::Raw::MemPtr->new_from_ptr(0);
+  my $size = FFI::Raw::MemPtr->new(8); # FIXME: STRLEN
+  my $ref = \$_[1];
+  $_[0]->(refaddr($ref), $ptr, $size);
+  (deref_to_ptr($$ptr), deref_to_uint64($$size));
+};
 
-sub buffer_to_scalar
+attach_function "buffer_to_scalar", [ _ptr, _ptr, _ptr ], _void, sub
 {
-  my($ptr, $size) = @_;
-  unpack "P$size", pack 'L!', $ptr;
-}
-
-push @EXPORT_OK, qw( scalar_to_buffer buffer_to_scalar );
+  my($cb, $ptr, $size) = @_;
+  my $sv = '\x00' x $size;
+  $cb->(\$sv, $ptr, $size);
+  $sv;
+};
 
 1;

@@ -1,6 +1,6 @@
 # FFI::Util
 
-The opposite of type casting
+Some useful pointer utilities when writing FFI modules
 
 # AUTHOR
 

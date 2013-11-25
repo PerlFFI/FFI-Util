@@ -6,7 +6,7 @@ use FFI::Raw 0.18;
 use FFI::Sweet;
 use base qw( Exporter );
 
-# ABSTRACT: The opposite of type casting
+# ABSTRACT: Some useful pointer utilities when writing FFI modules
 # VERSION
 
 ffi_lib do {

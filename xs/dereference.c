@@ -25,6 +25,16 @@ unsigned short deref_to_ushort(unsigned short *ptr)
   return *ptr;
 }
 
+long deref_to_long(long *ptr)
+{
+  return *ptr;
+}
+
+unsigned long deref_to_ulong(unsigned long *ptr)
+{
+  return *ptr;
+}
+
 char deref_to_char(char *ptr)
 {
   return *ptr;

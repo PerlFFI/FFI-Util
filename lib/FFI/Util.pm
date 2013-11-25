@@ -10,6 +10,17 @@ use Scalar::Util qw( refaddr );
 # ABSTRACT: Some useful pointer utilities when writing FFI modules
 # VERSION
 
+=head1 SYNOPSIS
+
+ use FFI::Util;
+
+=head1 DESCRIPTION
+
+At the moment, this is a sort of proof of concept, and may not be
+all that well planned or thought out.
+
+=cut
+
 our @EXPORT_OK = map { "deref_to_$_" } qw( ptr int uint short ushort char uchar float double int64 uint64 );
 push @EXPORT_OK, qw( scalar_to_buffer buffer_to_scalar );
 

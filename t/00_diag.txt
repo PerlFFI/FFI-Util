@@ -2,7 +2,6 @@ Exporter
 FFI::Raw
 FFI::Sweet
 Math::Int64
-Math::Int64::native_if_available
 Module::Build
 Scalar::Util
 Test::More

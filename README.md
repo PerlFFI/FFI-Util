@@ -2,6 +2,15 @@
 
 Some useful pointer utilities when writing FFI modules
 
+# SYNOPSIS
+
+    use FFI::Util;
+
+# DESCRIPTION
+
+At the moment, this is a sort of proof of concept, and may not be
+all that well planned or thought out.
+
 # AUTHOR
 
 Graham Ollis <plicease@cpan.org>

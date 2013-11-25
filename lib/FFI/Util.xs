@@ -2,7 +2,7 @@
 #include "perl.h"
 #include "XSUB.h"
 
-MODULE = FFI::AgainstType   PACKAGE = FFI::AgainstType
+MODULE = FFI::Util   PACKAGE = FFI::Util
 
 
 

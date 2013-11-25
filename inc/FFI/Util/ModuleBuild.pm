@@ -1,4 +1,4 @@
-package FFI::AgainstType::ModuleBuild;
+package FFI::Util::ModuleBuild;
 
 use strict;
 use warnings;

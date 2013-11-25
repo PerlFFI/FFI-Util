@@ -1,4 +1,4 @@
-# FFI::AgainstType
+# FFI::Util
 
 The opposite of type casting
 

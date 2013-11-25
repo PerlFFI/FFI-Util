@@ -1,16 +1,16 @@
-package FFI::AgainstType;
+package FFI::Util;
 
 use strict;
 use warnings;
 use FFI::Raw ();
-use FFI::Sweet qw( ffi_lib attach_function :types );
+use FFI::Sweet;
 use base qw( Exporter );
 
 # ABSTRACT: The opposite of type casting
 # VERSION
 
 ffi_lib do {
-  my($module, $modlibname) = ('FFI::AgainstType', __FILE__);
+  my($module, $modlibname) = ('FFI::Util', __FILE__);
   my @modparts = split(/::/,$module);
   my $modfname = $modparts[-1];
   my $modpname = join('/',@modparts);
@@ -25,9 +25,6 @@ ffi_lib do {
   \$file;
 };
 
-sub _int64 ()  { FFI::Raw::int64()  }
-sub _uint64 () { FFI::Raw::uint64() }
-
 attach_function "dereference_to_ptr",    [ _ptr ], _ptr;
 attach_function "dereference_to_int",    [ _ptr ], _int;
 attach_function "dereference_to_uint",   [ _ptr ], _uint;
@@ -41,5 +38,20 @@ attach_function "dereference_to_int64",  [ _ptr ], _int64;
 attach_function "dereference_to_uint64", [ _ptr ], _uint64;
 
 our @EXPORT_OK = map { "dereference_to_$_" } qw( ptr int uint short ushort char uchar float double int64 uint64 );
+
+sub scalar_to_buffer
+{
+  my $size = do { use bytes; length $_[0] };
+  my $ptr = unpack 'L!', pack 'P', $_[0];
+  ($ptr, $size)
+}
+
+sub buffer_to_scalar
+{
+  my($ptr, $size) = @_;
+  unpack "P$size", pack 'L!', $ptr;
+}
+
+push @EXPORT_OK, qw( scalar_to_buffer buffer_to_scalar );
 
 1;

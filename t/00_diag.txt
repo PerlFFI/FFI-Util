@@ -3,3 +3,4 @@ FFI::Raw
 FFI::Sweet
 Module::Build
 Test::More
+bytes

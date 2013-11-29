@@ -41,6 +41,7 @@ ffi_lib do {
 };
 
 attach_function "deref_to_ptr",    [ _ptr ], _ptr;
+attach_function "deref_to_str",    [ _ptr ], _str;
 attach_function "deref_to_int",    [ _ptr ], _int;
 attach_function "deref_to_uint",   [ _ptr ], _uint;
 attach_function "deref_to_short",  [ _ptr ], _short;

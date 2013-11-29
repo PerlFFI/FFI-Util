@@ -5,6 +5,11 @@ void *deref_to_ptr(void **ptr)
   return *ptr;
 }
 
+const char *deref_to_str(const char **ptr)
+{
+  return *ptr;
+}
+
 int deref_to_int(int *ptr)
 {
   return *ptr;

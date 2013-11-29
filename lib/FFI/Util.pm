@@ -21,7 +21,7 @@ all that well planned or thought out.
 
 =cut
 
-our @EXPORT_OK = map { "deref_to_$_" } qw( ptr int uint short ushort char uchar float double int64 uint64 );
+our @EXPORT_OK = map { "deref_to_$_" } qw( ptr str int uint short ushort char uchar float double int64 uint64 );
 push @EXPORT_OK, qw( scalar_to_buffer buffer_to_scalar );
 
 ffi_lib do {

@@ -13,8 +13,6 @@ use Exporter::Tidy
   },
   buffer => [qw( scalar_to_buffer buffer_to_scalar )],
 ;
-  
-
 
 # ABSTRACT: Some useful pointer utilities when writing FFI modules
 # VERSION
@@ -58,30 +56,9 @@ sub scalar_to_buffer
   (unpack('L!', pack 'P', $_[0]), do { use bytes; length $_[0] });
 }
 
-#attach_function "scalar_to_buffer", [ _ptr, _ptr, _ptr ], _void, sub
-#{
-#  my $cb = $_[0];
-#  my $ptr  = $_[2] || FFI::Raw::MemPtr->new_from_ptr(0);
-#  my $size = $_[3] || FFI::Raw::MemPtr->new(8); # FIXME: STRLEN
-#  my $ref = \$_[1];
-#  $_[0]->(refaddr($ref), $ptr, $size);
-#  if(defined wantarray)
-#  { return (deref_to_ptr(ref $ptr ? $$ptr : $ptr), deref_to_uint64(ref $size ? $$size : $size)) }
-#  else
-#  { return; }
-#};
-
 sub buffer_to_scalar
 {
   unpack 'P'.$_[1], pack 'L!', $_[0];
 }
-
-#attach_function "buffer_to_scalar", [ _ptr, _ptr, _ptr ], _void, sub
-#{
-#  my($cb, $ptr, $size) = @_;
-#  my $sv = '\x00' x $size;
-#  $cb->(\$sv, $ptr, $size);
-#  $sv;
-#};
 
 1;

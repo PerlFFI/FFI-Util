@@ -8,7 +8,8 @@ use FFI::Util qw( scalar_to_buffer buffer_to_scalar );
 
 subtest simple => sub {
   plan tests => 3;
-  my($ptr, $size) = scalar_to_buffer('me grimlock king');
+  my $orig = 'me grimlock king';
+  my($ptr, $size) = scalar_to_buffer($orig);
   ok $ptr, "ptr = $ptr";
   is $size, 16, 'size = 16';
   my $scalar = buffer_to_scalar($ptr, $size);
@@ -17,9 +18,11 @@ subtest simple => sub {
 
 subtest unicode => sub {
   plan tests => 3;
-  my($ptr, $size) = scalar_to_buffer('привет');
+  my $orig = 'привет';
+  my($ptr, $size) = scalar_to_buffer($orig);
   ok $ptr, "ptr = $ptr";
   ok $size, "size = $size";
   my $scalar = decode('UTF-8', buffer_to_scalar($ptr, $size));
   is $scalar, 'привет', "scalar = $scalar";
 };
+

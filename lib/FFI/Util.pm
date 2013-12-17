@@ -6,6 +6,13 @@ use FFI::Raw 0.18;
 use FFI::Sweet;
 use base qw( Exporter );
 use Scalar::Util qw( refaddr );
+use Exporter::Tidy
+  deref => do {
+    our @types = qw( ptr str int uint short ushort char uchar float double int64 uint64 long ulong );
+    [map { ("deref_$_\_get","deref_$_\_set") } @types];
+  },
+  buffer => [qw( scalar_to_buffer buffer_to_scalar )],
+;
 
 # ABSTRACT: Some useful pointer utilities when writing FFI modules
 # VERSION
@@ -20,9 +27,6 @@ At the moment, this is a sort of proof of concept, and may not be
 all that well planned or thought out.
 
 =cut
-
-our @EXPORT_OK = map { "deref_to_$_" } qw( ptr str int uint short ushort char uchar float double int64 uint64 long ulong );
-push @EXPORT_OK, qw( scalar_to_buffer buffer_to_scalar );
 
 ffi_lib do {
   my($module, $modlibname) = ('FFI::Util', __FILE__);
@@ -40,40 +44,21 @@ ffi_lib do {
   \$file;
 };
 
-attach_function "deref_to_ptr",    [ _ptr ], _ptr;
-attach_function "deref_to_str",    [ _ptr ], _str;
-attach_function "deref_to_int",    [ _ptr ], _int;
-attach_function "deref_to_uint",   [ _ptr ], _uint;
-attach_function "deref_to_short",  [ _ptr ], _short;
-attach_function "deref_to_ushort", [ _ptr ], _ushort;
-attach_function "deref_to_long",   [ _ptr ], _long;
-attach_function "deref_to_ulong",  [ _ptr ], _ulong;
-attach_function "deref_to_char",   [ _ptr ], _char;
-attach_function "deref_to_uchar",  [ _ptr ], _uchar;
-attach_function "deref_to_float",  [ _ptr ], _float;
-attach_function "deref_to_double", [ _ptr ], _double;
-attach_function "deref_to_int64",  [ _ptr ], _int64;
-attach_function "deref_to_uint64", [ _ptr ], _uint64;
-
-attach_function "scalar_to_buffer", [ _ptr, _ptr, _ptr ], _void, sub
+foreach my $type (our @types)
 {
-  my $cb = $_[0];
-  my $ptr  = $_[2] || FFI::Raw::MemPtr->new_from_ptr(0);
-  my $size = $_[3] || FFI::Raw::MemPtr->new(8); # FIXME: STRLEN
-  my $ref = \$_[1];
-  $_[0]->(refaddr($ref), $ptr, $size);
-  if(defined wantarray)
-  { return (deref_to_ptr(ref $ptr ? $$ptr : $ptr), deref_to_uint64(ref $size ? $$size : $size)) }
-  else
-  { return; }
-};
+  my $code_type = eval qq{ _$type };
+  attach_function "deref_$type\_get", [ _ptr ], $code_type;
+  attach_function "deref_$type\_set", [ _ptr, $code_type ], _void;
+}
 
-attach_function "buffer_to_scalar", [ _ptr, _ptr, _ptr ], _void, sub
+sub scalar_to_buffer
 {
-  my($cb, $ptr, $size) = @_;
-  my $sv = '\x00' x $size;
-  $cb->(\$sv, $ptr, $size);
-  $sv;
-};
+  (unpack('L!', pack 'P', $_[0]), do { use bytes; length $_[0] });
+}
+
+sub buffer_to_scalar
+{
+  unpack 'P'.$_[1], pack 'L!', $_[0];
+}
 
 1;

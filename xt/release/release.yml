@@ -8,4 +8,5 @@ pod_spelling_system:
 pod_coverage:
   # format is "Class#method" or "Class", regex allowed
   # for either Class or method.
-  private: []
+  private:
+    - Module::Build::FFI#.*

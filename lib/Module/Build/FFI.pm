@@ -1,10 +1,34 @@
-package FFI::Util::ModuleBuild;
+package Module::Build::FFI;
 
 use strict;
 use warnings;
 use base qw( Module::Build );
 use Carp qw( croak );
 use File::Spec;
+
+# ABSTRACT: Build Perl extensions if C with FFI.
+
+=head1 SYNOPSIS
+
+raw Build.PL:
+
+ use Module::Build::FFI;
+ Module::Build::FFI->new(
+   module_name => 'Foo::Bar',
+   ...
+ )->create_build_script;
+
+Dist::Zilla:
+
+ [ModuleBuild]
+ mb_class      = Module::Build::FFI
+ mb_lib        = lib
+
+=head1 DESCRIPTION
+
+Module::Build variant for writing Perl extensions in C with FFI.
+
+=cut
 
 sub new
 {

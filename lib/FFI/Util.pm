@@ -58,7 +58,7 @@ sub scalar_to_buffer
 
 sub buffer_to_scalar
 {
-  unpack 'P'.$_[1], pack 'L!', $_[0];
+  unpack 'P'.$_[1], pack 'L!', defined $_[0] ? $_[0] : 0;
 }
 
 1;

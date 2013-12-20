@@ -77,6 +77,26 @@ equivalent to
     int integer;
     integer = *ptr;
 
+## deref\_int\_set
+
+    deref_int_set($ptr, $integer);
+
+equivalent to
+
+    int *ptr;
+    int integer;
+    *ptr = integer;
+
+## deref\_uint\_get
+
+    my $unsigned_integer = deref_uint_get($ptr);
+
+equivalent to
+
+    unsigned int unsigned_integer;
+    unsigned int *ptr;
+    unsigned_integer = *ptr;
+
 # AUTHOR
 
 Graham Ollis <plicease@cpan.org>

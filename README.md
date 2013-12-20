@@ -27,6 +27,56 @@ and the size of the scalar in bytes.
 Given a pointer to a memory location and a size, construct a new scalar
 with the same content and size.
 
+## deref\_ptr\_get
+
+    my $ptr2 = deref_ptr_get($ptr1);
+
+equivalent to
+
+    void *ptr1;
+    void *ptr2;
+    *ptr2 = *ptr1;
+
+## deref\_ptr\_set
+
+    deref_ptr_set($ptr1, $ptr2);
+
+equivalent to
+
+    void **ptr1;
+    void *ptr2;
+    *ptr1 = ptr2;
+
+## deref\_str\_get
+
+    my $string = deref_str_get($ptr);
+
+equivalent to
+
+    const char *string;
+    const char **ptr;
+    string = *ptr;
+
+## deref\_str\_set
+
+    deref_str_set($ptr, $string);
+
+equivalent to
+
+    const char **ptr;
+    const char *string;
+    *ptr = string;
+
+## deref\_int\_get
+
+    my $integer = deref_int_get($ptr);
+
+equivalent to
+
+    int *ptr;
+    int integer;
+    integer = *ptr;
+
 # AUTHOR
 
 Graham Ollis <plicease@cpan.org>

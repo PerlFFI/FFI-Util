@@ -1,34 +1,145 @@
 #include <stdint.h>
 
+/*
+
+=head2 deref_ptr_get
+
+ my $ptr2 = deref_ptr_get($ptr1);
+
+equivalent to
+
+ void *ptr1;
+ void *ptr2;
+ *ptr2 = *ptr1;
+
+=cut
+
+*/
 void *deref_ptr_get(void **ptr)
 {
   return *ptr;
 }
+
+/*
+
+=head2 deref_ptr_set
+
+ deref_ptr_set($ptr1, $ptr2);
+
+equivalent to
+
+ void **ptr1;
+ void *ptr2;
+ *ptr1 = ptr2;
+
+=cut
+
+*/
 
 void deref_ptr_set(void **ptr, void *value)
 {
   *ptr = value;
 }
 
+/*
+
+=head2 deref_str_get
+
+ my $string = deref_str_get($ptr);
+
+equivalent to
+
+ const char *string;
+ const char **ptr;
+ string = *ptr;
+
+=cut
+
+*/
+
 const char *deref_str_get(const char **ptr)
 {
   return *ptr;
 }
+
+/*
+
+=head2 deref_str_set
+
+ deref_str_set($ptr, $string);
+
+equivalent to
+
+ const char **ptr;
+ const char *string;
+ *ptr = string;
+
+=cut
+
+*/
 
 void deref_str_set(const char **ptr, const char *value)
 {
   *ptr = value;
 }
 
+/*
+
+=head2 deref_int_get
+
+ my $integer = deref_int_get($ptr);
+
+equivalent to
+
+ int *ptr;
+ int integer;
+ integer = *ptr;
+
+=cut
+
+*/
+
 int deref_int_get(int *ptr)
 {
   return *ptr;
 }
 
+/*
+
+=head2 deref_int_set
+
+ deref_int_set($ptr, $integer);
+
+equivalent to
+
+ int *ptr;
+ int integer;
+ *ptr = integer;
+
+=cut
+
+*/
+
 void deref_int_set(int *ptr, int value)
 {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_uint_get
+
+ my $unsigned_integer = deref_uint_get($ptr);
+
+equivalent to
+
+ unsigned int unsigned_integer;
+ unsigned int *ptr;
+ unsigned_integer = *ptr;
+
+=cut
+
+*/
 
 unsigned int deref_uint_get(unsigned int *ptr)
 {

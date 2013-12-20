@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use base qw( Module::Build );
 use Carp qw( croak );
+use File::Spec;
 
 sub new
 {
@@ -43,10 +44,20 @@ sub process_xs_files
   return if $self->pureperl_only && $self->allow_pureperl;
   croak 'Can\'t build ffi files under --pureperl-only' if $self->pureperl_only;
 
-  my $spec = $self->_infer_xs_spec('lib/FFI/Util.xs');
-  
+  croak 'Can\'t determine module_name' unless $self->module_name;
+
+  my $fake_xs = do {
+    my @parts = split /::/, $self->module_name;
+    $parts[-1] .= ".xs";
+    File::Spec->catfile('lib', @parts);
+  };
+
+  # TODO: don't depend on this private method
+  # from Module::Build::Base
+  my $spec = $self->_infer_xs_spec($fake_xs);
+
   # File name, minus the suffix
-  (my $file_base = 'lib/FFI/Util.xs') =~ s/\.[^.]+$//;
+  (my $file_base = $fake_xs) =~ s/\.[^.]+$//;
   
   # archdir
   File::Path::mkpath($spec->{archdir}, 0, oct(777)) unless -d $spec->{archdir};

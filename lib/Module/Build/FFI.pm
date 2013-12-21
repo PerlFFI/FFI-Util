@@ -5,6 +5,9 @@ use warnings;
 use base qw( Module::Build );
 use Carp qw( croak );
 use File::Spec;
+use File::Temp qw( tempdir );
+use File::Copy qw( copy cp );
+use File::Basename qw( basename );
 
 # ABSTRACT: Build Perl extensions if C with FFI.
 
@@ -59,6 +62,7 @@ sub new
   my($class, %args) = @_;
   
   $args{c_source} ||= 'ffi';
+  $args{requires}{'Alien::o2dll'} = '0' if $^O eq 'MSWin32';
   
   $class->SUPER::new(%args);
 }
@@ -77,11 +81,37 @@ sub link_c
 
   my $module_name = $spec->{module_name} || $self->module_name;
 
-  $self->cbuilder->link(
-    module_name => $module_name,
-    objects     => $objects,
-    lib_file    => $spec->{lib_file},
-    extra_linker_flags => $p->{extra_linker_flags} );
+  if($^O eq 'MSWin32')
+  {
+    require Alien::o2dll;
+    my $dir = tempdir( CLEANUP => 1 );
+    
+    foreach my $object (@$objects)
+    {
+      copy($object, File::Spec->catfile($dir, basename $object)) || die "unable to copy $!";
+    }
+    
+    my $save = Win32::GetCwd();
+    chdir $dir;
+    Alien::o2dll::o2dll( -o => basename($spec->{lib_file}), map { basename $_ } @$objects );
+    
+    opendir my $dh, '.';
+    my($tmp_dll_name) = grep /\.dll$/, readdir $dh;
+    closedir  $dh;
+    
+    chdir $save;
+    
+    cp(File::Spec->catfile($dir, $tmp_dll_name), $spec->{lib_file}) || die "unable to copy $!";
+  }
+  else
+  {
+    $self->cbuilder->link(
+      module_name => $module_name,
+      objects     => $objects,
+      lib_file    => $spec->{lib_file},
+      extra_linker_flags => $p->{extra_linker_flags},
+    );
+  };
 
   return $spec->{lib_file};  
 }

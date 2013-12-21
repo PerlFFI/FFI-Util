@@ -2,6 +2,7 @@ package FFI::Util;
 
 use strict;
 use warnings;
+use Config (); # TODO: way to get dlext without loading this
 use FFI::Raw 0.18;
 use FFI::Sweet;
 use base qw( Exporter );
@@ -35,11 +36,11 @@ ffi_lib do {
   my $modpname = join('/',@modparts);
   my $c = @modparts;
   $modlibname =~ s,[\\/][^\\/]+$,, while $c--;    # Q&D basename
-  my $file = "$modlibname/auto/$modpname/$modfname.so";
+  my $file = "$modlibname/auto/$modpname/$modfname.$Config::Config{dlext}";
   unless(-e $file)
   {
     $modlibname =~ s,[\\/][^\\/]+$,,;
-    $file = "$modlibname/arch/auto/$modpname/$modfname.so"
+    $file = "$modlibname/arch/auto/$modpname/$modfname.$Config::Config{dlext}";
   }
   \$file;
 };

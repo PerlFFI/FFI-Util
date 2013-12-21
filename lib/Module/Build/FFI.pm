@@ -24,6 +24,30 @@ Dist::Zilla:
  mb_class      = Module::Build::FFI
  mb_lib        = lib
 
+Put your .c and .h files in ffi (ffi/example.c):
+
+ #include <stdio.h>
+ 
+ void print_hello(void)
+ {
+   printf("hello world\n");
+ }
+
+Attach it in your main module:
+
+ package Foo::Bar;
+ 
+ use FFI::Sweet;
+ 
+ ffi_lib ???; # TODO
+ 
+ attach_function 'hello_world', [], _void;
+
+Use it elsewhere:
+
+ use Foo::Bar;
+ Foo::Bar::hello_world();
+
 =head1 DESCRIPTION
 
 Module::Build variant for writing Perl extensions in C with FFI.
@@ -34,7 +58,7 @@ sub new
 {
   my($class, %args) = @_;
   
-  $args{c_source} = 'ffi';
+  $args{c_source} ||= 'ffi';
   
   $class->SUPER::new(%args);
 }
@@ -70,19 +94,33 @@ sub process_xs_files
 
   croak 'Can\'t determine module_name' unless $self->module_name;
 
-  my $fake_xs = do {
+  my $spec = { module_name => $self->module_name };
+  my $cf = $self->{config};
+
+  my($fake_xs, $file_base) = do {
     my @parts = split /::/, $self->module_name;
-    $parts[-1] .= ".xs";
-    File::Spec->catfile('lib', @parts);
+    my @parts_xs   = @parts;
+    
+    $spec->{base_name} = $parts[-1];
+
+    $spec->{archdir} = File::Spec->catdir($self->blib, 'arch', 'auto', @parts);
+    
+    require DynaLoader;
+    my $modfname = defined &DynaLoader::mod2fname
+    ? DynaLoader::mod2fname(['lib', @parts])
+    : $parts[-1];
+
+    $spec->{lib_file} = File::Spec->catfile($spec->{archdir}, "$modfname.".$cf->get('dlext'));
+    
+    $parts_xs[-1] .= ".xs";
+    (
+      File::Spec->catfile('lib', @parts_xs),
+      File::Spec->catfile('lib', @parts),
+    );
   };
 
-  # TODO: don't depend on this private method
-  # from Module::Build::Base
-  my $spec = $self->_infer_xs_spec($fake_xs);
+  #my $spec = $self->_infer_xs_spec($fake_xs);
 
-  # File name, minus the suffix
-  (my $file_base = $fake_xs) =~ s/\.[^.]+$//;
-  
   # archdir
   File::Path::mkpath($spec->{archdir}, 0, oct(777)) unless -d $spec->{archdir};
 

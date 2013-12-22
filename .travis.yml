@@ -2,7 +2,7 @@ language: perl
 
 install:
   - cpanm -n Dist::Zilla
-  - dzil authordeps --missing | cpanm -n
+  - dzil authordeps --missing | grep -v inc::Doco |cpanm -n
   - cpanm Exporter::Tidy
   - cpanm FFI::Raw
   - cpanm Math::Int64

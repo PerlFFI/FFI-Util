@@ -1,4 +1,3 @@
-Exporter
 Exporter::Tidy
 FFI::Raw
 FFI::Sweet

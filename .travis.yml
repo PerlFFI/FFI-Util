@@ -3,10 +3,10 @@ language: perl
 install:
   - cpanm -n Dist::Zilla
   - dzil authordeps --missing | grep -v inc::Doco |cpanm -n
-  - cpanm Exporter::Tidy
-  - cpanm FFI::Raw
-  - cpanm Math::Int64
-  - cpanm Pod::Abstract
+  - cpanm -n Exporter::Tidy
+  - cpanm -n FFI::Raw
+  - cpanm -n Math::Int64
+  - cpanm -n Pod::Abstract
   - cpanm -n Test::CPAN::Changes Test::EOL Test::Fixme Test::NoTabs Test::Pod::Spelling::CommonMistakes Test::Spelling Test::Strict Test::Version || true
   - git clone https://github.com/merrilymeredith/p5-FFI-Sweet.git && cd p5-FFI-Sweet && dzil install && cd .. && rm -rf p5-FFI-Sweet
 

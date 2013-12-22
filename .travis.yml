@@ -6,6 +6,7 @@ install:
   - cpanm Exporter::Tidy
   - cpanm FFI::Raw
   - cpanm Math::Int64
+  - cpanm Pod::Abstract
   - git clone https://github.com/merrilymeredith/p5-FFI-Sweet.git && cd p5-FFI-Sweet && dzil install && cd .. && rm -rf p5-FFI-Sweet
 
 perl:

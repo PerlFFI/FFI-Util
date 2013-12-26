@@ -1,4 +1,4 @@
-# FFI::Util
+# FFI::Util [![Build Status](https://secure.travis-ci.org/plicease/FFI-Util.png)](http://travis-ci.org/plicease/FFI-Util)
 
 Some useful pointer utilities when writing FFI modules
 

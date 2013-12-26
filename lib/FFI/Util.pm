@@ -6,7 +6,6 @@ use constant;
 use Config (); # TODO: way to get dlext without loading this
 use FFI::Raw 0.18;
 use FFI::Sweet;
-use base qw( Exporter );
 use Scalar::Util qw( refaddr );
 use Exporter::Tidy
   deref => do {

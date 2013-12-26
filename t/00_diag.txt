@@ -1,8 +1,6 @@
-Exporter
 Exporter::Tidy
 FFI::Raw
 FFI::Sweet
 Math::Int64
 Module::Build
-Scalar::Util
 Test::More

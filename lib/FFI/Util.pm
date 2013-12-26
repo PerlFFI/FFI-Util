@@ -11,7 +11,7 @@ use Scalar::Util qw( refaddr );
 use Exporter::Tidy
   deref => do {
     our @types = qw( ptr str int uint short ushort char uchar float double int64 uint64 long ulong );
-    [map { ("deref_$_\_get","deref_$_\_set") } @types];
+    [map { ("deref_$_\_get","deref_$_\_set") } (@types, qw( size_t time_t dev_t gid_t uid_t ))];
   },
   buffer => [qw( scalar_to_buffer buffer_to_scalar )],
   types => [qw( _size_t _time_t _dev_t _gid_t _uid_t )],
@@ -63,6 +63,15 @@ foreach my $type (our @types)
   my $code_type = eval qq{ _$type };
   attach_function "deref_$type\_get", [ _ptr ], $code_type;
   attach_function "deref_$type\_set", [ _ptr, $code_type ], _void;
+  
+  foreach my $otype (qw( size_t time_t dev_t gid_t uid_t ))
+  {
+    if(lookup_type($otype) eq "_$type")
+    {
+      attach_function [ "deref_$type\_get", "deref_$otype\_get" ], [ _ptr ], $code_type;
+      attach_function [ "deref_$type\_set", "deref_$otype\_set" ], [ _ptr, $code_type ], _void;
+    }
+  }
 }
 
 =head1 FUNCTIONS

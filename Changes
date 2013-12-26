@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - added types: size_t time_t dev_t gid_t uid_t
 
 0.01      2013-12-20 17:50:28 -0500
   - initial version

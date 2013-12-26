@@ -2,6 +2,7 @@ package FFI::Util;
 
 use strict;
 use warnings;
+use constant;
 use Config (); # TODO: way to get dlext without loading this
 use FFI::Raw 0.18;
 use FFI::Sweet;
@@ -13,6 +14,7 @@ use Exporter::Tidy
     [map { ("deref_$_\_get","deref_$_\_set") } @types];
   },
   buffer => [qw( scalar_to_buffer buffer_to_scalar )],
+  types => [qw( _size_t _time_t _dev_t _gid_t _uid_t )],
 ;
 
 # ABSTRACT: Some useful pointer utilities when writing FFI modules
@@ -44,6 +46,17 @@ ffi_lib do {
   }
   \$file;
 };
+
+attach_function 'lookup_type', [ _str ], _str;
+
+foreach my $type (qw( size_t time_t dev_t gid_t uid_t ))
+{
+  my $real_type = lookup_type($type);
+  if($real_type)
+  {
+    constant->import("_$type" => eval "$real_type\()");
+  }
+}
 
 foreach my $type (our @types)
 {

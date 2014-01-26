@@ -2,7 +2,6 @@ package inc::Doco;
 
 use Moose;
 use Pod::Abstract;
-use v5.10;
 
 with 'Dist::Zilla::Role::FileMunger';
 

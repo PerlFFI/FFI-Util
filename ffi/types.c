@@ -5,6 +5,9 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stddef.h>
+#include <string.h>
+#include <time.h>
+#include <sys/stat.h>
 
 #define is_signed(type) (((type)-1) < 0)
 

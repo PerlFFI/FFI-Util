@@ -1,13 +1,4 @@
-/*
- *  provide types for size_t, time_t, dev_t, gid_t, uid_t
- */
-
-#include <stdint.h>
-#include <stdlib.h>
-#include <stddef.h>
-#include <string.h>
-#include <time.h>
-#include <sys/stat.h>
+#include "ffi_util_config.h"
 
 #define is_signed(type) (((type)-1) < 0)
 
@@ -24,25 +15,35 @@
 const char *
 lookup_type(const char *name)
 {
+#ifdef HAS_SIZE_T
   if(!strcmp(name, "size_t"))
   {
     storage(size_t);
   }
+#endif
+#ifdef HAS_TIME_T
   if(!strcmp(name, "time_t"))
   {
     storage(time_t);
   }
+#endif
+#ifdef HAS_DEV_T
   if(!strcmp(name, "dev_t"))
   {
     storage(dev_t);
   }
+#endif
+#ifdef HAS_GID_T
   if(!strcmp(name, "gid_t"))
   {
     storage(gid_t);
   }
+#endif
+#ifdef HAS_UID_T
   if(!strcmp(name, "uid_t"))
   {
     storage(uid_t);
   }
+#endif
   return NULL;
 }

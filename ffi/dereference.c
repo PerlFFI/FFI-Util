@@ -1,5 +1,4 @@
-#include <stdint.h>
-#include <time.h>
+#include "ffi_util_config.h"
 
 /*
 
@@ -251,4 +250,5 @@ void deref_uint64_set(uint64_t *ptr, uint64_t value)
 {
   *ptr = value;
 }
+
 

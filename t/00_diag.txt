@@ -1,7 +1,6 @@
 Exporter::Tidy
 ExtUtils::CChecker
 FFI::Raw
-FFI::Sweet
 Math::Int64
 Module::Build
 Test::More

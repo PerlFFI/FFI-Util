@@ -4,13 +4,13 @@
 
 #define storage(type) \
   if(sizeof(type) == sizeof(short))   \
-    return is_signed(type) ? "_short" : "_ushort"; \
+    return is_signed(type) ? "short" : "ushort"; \
   else if(sizeof(type) == sizeof(int)) \
-    return is_signed(type) ? "_int" : "_uint"; \
+    return is_signed(type) ? "int" : "uint"; \
   else if(sizeof(type) == sizeof(long)) \
-    return is_signed(type) ? "_long" : "_ulong"; \
+    return is_signed(type) ? "long" : "ulong"; \
   else if(sizeof(type) == sizeof(int64_t)) \
-    return is_signed(type) ? "_int64" : "_uint64";
+    return is_signed(type) ? "int64" : "uint64";
 
 const char *
 lookup_type(const char *name)

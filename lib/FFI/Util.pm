@@ -4,8 +4,7 @@ use strict;
 use warnings;
 use constant;
 use Config (); # TODO: way to get dlext without loading this
-use FFI::Raw 0.18;
-use FFI::Sweet;
+use FFI::Raw 0.27;
 use Scalar::Util qw( refaddr );
 use Exporter::Tidy
   deref => do {
@@ -30,7 +29,7 @@ all that well planned or thought out.
 
 =cut
 
-ffi_lib do {
+my $lib = do {
   my($module, $modlibname) = ('FFI::Util', __FILE__);
   my @modparts = split(/::/,$module);
   my $modfname = $modparts[-1];
@@ -43,32 +42,42 @@ ffi_lib do {
     $modlibname =~ s,[\\/][^\\/]+$,,;
     $file = "$modlibname/arch/auto/$modpname/$modfname.$Config::Config{dlext}";
   }
-  \$file;
+  $file;
 };
 
-attach_function 'lookup_type', [ _str ], _str;
+*lookup_type = FFI::Raw->new( $lib, 'lookup_type', FFI::Raw::str, FFI::Raw::str )->coderef;
 
 foreach my $type (qw( size_t time_t dev_t gid_t uid_t ))
 {
   my $real_type = lookup_type($type);
   if($real_type)
   {
-    constant->import("_$type" => eval "$real_type\()");
+    constant->import("_$type" => eval "FFI::Raw::$real_type\()");
   }
 }
 
 foreach my $type (our @types)
 {
-  my $code_type = eval qq{ _$type };
-  attach_function "deref_$type\_get", [ _ptr ], $code_type;
-  attach_function "deref_$type\_set", [ _ptr, $code_type ], _void;
+  my $code_type = eval qq{ FFI::Raw::$type };
+  do {
+    my $name = "deref_$type\_get";
+    no strict 'refs';
+    *{$name} = FFI::Raw->new( $lib, $name, $code_type, FFI::Raw::ptr )->coderef;
+  };
+  
+  do {
+    my $name = "deref_$type\_set";
+    no strict 'refs';
+    *{$name} = FFI::Raw->new( $lib, $name, FFI::Raw::void, FFI::Raw::ptr, $code_type )->coderef;
+  };
   
   foreach my $otype (qw( size_t time_t dev_t gid_t uid_t ))
   {
     if(lookup_type($otype) eq "_$type")
     {
-      attach_function [ "deref_$type\_get", "deref_$otype\_get" ], [ _ptr ], $code_type;
-      attach_function [ "deref_$type\_set", "deref_$otype\_set" ], [ _ptr, $code_type ], _void;
+      no strict 'refs';
+      *{"deref_$otype\_get"} = \&{"deref_$type\_get"};
+      *{"deref_$otype\_set"} = \&{"deref_$type\_set"};
     }
   }
 }

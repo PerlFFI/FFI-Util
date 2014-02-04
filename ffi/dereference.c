@@ -146,105 +146,418 @@ unsigned int deref_uint_get(unsigned int *ptr)
   return *ptr;
 }
 
+/*
+
+=head2 deref_uint_set
+
+ deref_uint_set($ptr, $unsigned_integer);
+
+equivalent to
+
+ unsigned int *ptr;
+ unsigned int unsigned_integer;
+ *ptr = unsigned_integer;
+
+*/
+
 void deref_uint_set(unsigned int *ptr, unsigned int value)
 {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_short_get
+
+ my $short_integer = deref_short_get($ptr);
+
+equivalent to
+
+ short short_integer;
+ short *ptr;
+ short_integer = *ptr;
+
+=cut
+
+*/
 
 short deref_short_get(short *ptr)
 {
   return *ptr;
 }
 
+/*
+
+=head2 deref_short_set
+
+ deref_short_set($ptr, $short_integer);
+
+equivalent to
+
+ short *ptr;
+ short short_integer;
+ *ptr = short_integer;
+
+*/
+
 void deref_short_set(short *ptr, short value)
 {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_ushort_get
+
+ my $unsigned_short_integer = deref_ushort_get($ptr);
+
+equivalent to
+
+ unsigned short unsigned_short_integer;
+ unsigned short *ptr;
+ unsigned unsigned_short_integer = *ptr;
+
+=cut
+
+*/
 
 unsigned short deref_ushort_get(unsigned short *ptr)
 {
   return *ptr;
 }
 
+/*
+
+=head2 deref_ushort_set
+
+ deref_ushort_set($ptr, $unsigned_short_integer);
+
+equivalent to
+
+ unsigned short *ptr;
+ unsigned short unsigned_short_integer;
+ *ptr = unsigned_short_integer;
+
+*/
+
 void deref_ushort_set(unsigned short *ptr, unsigned short value)
 {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_long_get
+
+ my $long_integer = deref_long_get($ptr);
+
+equivalent to
+
+ long long_integer;
+ long *ptr;
+ long_integer = *ptr;
+
+=cut
+
+*/
 
 long deref_long_get(long *ptr)
 {
   return *ptr;
 }
 
-void deref_long_set(long *ptr, long value)
-{
+/*
+
+=head2 deref_long_set
+
+ deref_long_set($ptr, $long_integer);
+
+equivalent to
+
+ long *ptr;
+ long long_integer;
+ *ptr = long_integer;
+
+*/
+
+void deref_long_set(long *ptr, long value) {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_ulong_get
+
+ my $unsigned_long_integer = deref_ulong_get($ptr);
+
+equivalent to
+
+ unsigned long unsigned_long_integer;
+ unsigned long *ptr;
+ unsigned unsigned_long_integer = *ptr;
+
+=cut
+
+*/
 
 unsigned long deref_ulong_get(unsigned long *ptr)
 {
   return *ptr;
 }
 
+/*
+
+=head2 deref_ulong_set
+
+ deref_ulong_set($ptr, $unsigned_long_integer);
+
+equivalent to
+
+ unsigned long *ptr;
+ unsigned long unsigned_long_integer;
+ *ptr = unsigned_long_integer;
+
+*/
+
 void deref_ulong_set(unsigned long *ptr, unsigned long value)
 {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_char_get
+
+ my $char_integer = deref_char_get($ptr);
+
+equivalent to
+
+ char char_integer;
+ char *ptr;
+ char_integer = *ptr;
+
+=cut
+
+*/
 
 char deref_char_get(char *ptr)
 {
   return *ptr;
 }
 
+/*
+
+=head2 deref_char_set
+
+ deref_char_set($ptr, $char_integer);
+
+equivalent to
+
+ char *ptr;
+ char char_integer;
+ *ptr = char_integer;
+
+*/
+
 void deref_char_set(char *ptr, char value)
 {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_uchar_get
+
+ my $unsigned_char_integer = deref_uchar_get($ptr);
+
+equivalent to
+
+ unsigned char unsigned char_integer;
+ unsigned char *ptr;
+ unsigned_char_integer = *ptr;
+
+=cut
+
+*/
 
 unsigned char deref_uchar_get(unsigned char *ptr)
 {
   return *ptr;
 }
 
+/*
+
+=head2 deref_uchar_set
+
+ deref_uchar_set($ptr, $unsigned_char_integer);
+
+equivalent to
+
+ unsigned char *ptr;
+ unsigned char unsigned_char_integer;
+ *ptr = unsigned_char_integer;
+
+*/
+
 void deref_uchar_set(unsigned char *ptr, unsigned char value)
 {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_float_get
+
+ my $single_float = deref_float_get($ptr);
+
+equivalent to
+
+ float single_float;
+ float *ptr;
+ single_float = *ptr;
+
+=cut
+
+*/
 
 float deref_float_get(float *ptr)
 {
   return *ptr;
 }
 
+/*
+
+=head2 deref_float_set
+
+ deref_float_set($ptr, $single_float);
+
+equivalent to
+
+ float *ptr;
+ float single_float;
+ *ptr = single_float;
+
+*/
+
 void deref_float_set(float *ptr, float value)
 {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_double_get
+
+ my $double_float = deref_double_get($ptr);
+
+equivalent to
+
+ double double_float;
+ double *ptr;
+ double_float = *ptr;
+
+=cut
+
+*/
 
 double deref_double_get(double *ptr)
 {
   return *ptr;
 }
 
+/*
+
+=head2 deref_double_set
+
+ deref_double_set($ptr, $double_float);
+
+equivalent to
+
+ double *ptr;
+ double double_float;
+ *ptr = double_float;
+
+*/
+
 void deref_double_set(float *ptr, double value)
 {
   *ptr = value;
 }
+
+/*
+
+=head2 deref_int64_get
+
+ my $int64 = deref_int64_get($ptr);
+
+equivalent to
+
+ int64_t int64;
+ int64_t *ptr;
+ int64 = *ptr;
+
+=cut
+
+*/
 
 int64_t deref_int64_get(int64_t *ptr)
 {
   return *ptr;
 }
 
+/*
+
+=head2 deref_int64_set
+
+ deref_int64_set($ptr, $int64);
+
+equivalent to
+
+ int64_t *ptr;
+ int64_t int64;
+ *ptr = int64;
+
+*/
+
 void deref_int64_set(int64_t *ptr, int64_t value)
 {
   *ptr = value;
 }
 
+/*
+
+=head2 deref_uint64_get
+
+ my $uint64 = deref_uint64_get($ptr);
+
+equivalent to
+
+ uint64_t uint64;
+ uint64_t *ptr;
+ uint64 = *ptr;
+
+=cut
+
+*/
+
 uint64_t deref_uint64_get(uint64_t *ptr)
 {
   return *ptr;
 }
+
+/*
+
+=head2 deref_uint64_set
+
+ deref_uint64_set($ptr, $uint64);
+
+equivalent to
+
+ uint64_t *ptr;
+ uint64_t uint64;
+ *ptr = uint64;
+
+*/
 
 void deref_uint64_set(uint64_t *ptr, uint64_t value)
 {

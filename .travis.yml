@@ -9,7 +9,6 @@ install:
   - cpanm -n Pod::Abstract
   - cpanm -n ExtUtils::CChecker
   - cpanm -n Test::CPAN::Changes Test::EOL Test::Fixme Test::NoTabs Test::Pod::Spelling::CommonMistakes Test::Spelling Test::Strict Test::Version || true
-  - git clone https://github.com/merrilymeredith/p5-FFI-Sweet.git && cd p5-FFI-Sweet && dzil install && cd .. && rm -rf p5-FFI-Sweet
 
 perl:
   - "5.10"

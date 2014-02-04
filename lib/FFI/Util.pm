@@ -45,11 +45,11 @@ my $lib = do {
   $file;
 };
 
-*lookup_type = FFI::Raw->new( $lib, 'lookup_type', FFI::Raw::str, FFI::Raw::str )->coderef;
+*_lookup_type = FFI::Raw->new( $lib, 'lookup_type', FFI::Raw::str, FFI::Raw::str )->coderef;
 
 foreach my $type (qw( size_t time_t dev_t gid_t uid_t ))
 {
-  my $real_type = lookup_type($type);
+  my $real_type = _lookup_type($type);
   if($real_type)
   {
     constant->import("_$type" => eval "FFI::Raw::$real_type\()");
@@ -73,7 +73,7 @@ foreach my $type (our @types)
   
   foreach my $otype (qw( size_t time_t dev_t gid_t uid_t ))
   {
-    if(lookup_type($otype) eq "_$type")
+    if(_lookup_type($otype) eq "_$type")
     {
       no strict 'refs';
       *{"deref_$otype\_get"} = \&{"deref_$type\_get"};

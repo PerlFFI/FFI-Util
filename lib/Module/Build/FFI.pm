@@ -40,6 +40,7 @@ Attach it in your main module:
  package Foo::Bar;
  
  use FFI::Raw;
+ use FFI::Util qw( locate_module_share_lib );
  
  my $lib = locate_module_share_lib();
 

@@ -13,6 +13,7 @@ use Exporter::Tidy
   },
   buffer => [qw( scalar_to_buffer buffer_to_scalar )],
   types => [qw( _size_t _time_t _dev_t _gid_t _uid_t )],
+  locate_module_share_lib => [qw( locate_module_share_lib )],
 ;
 
 # ABSTRACT: Some useful pointer utilities when writing FFI modules

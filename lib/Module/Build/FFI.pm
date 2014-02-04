@@ -25,7 +25,6 @@ Dist::Zilla:
 
  [ModuleBuild]
  mb_class      = Module::Build::FFI
- mb_lib        = lib
 
 Put your .c and .h files in ffi (ffi/example.c):
 
@@ -40,11 +39,11 @@ Attach it in your main module:
 
  package Foo::Bar;
  
- use FFI::Sweet;
+ use FFI::Raw;
  
- ffi_lib ???; # TODO
- 
- attach_function 'hello_world', [], _void;
+ my $lib = locate_module_share_lib();
+
+ *print_hello = FFI::Raw->new($lib, 'hello_world', FFI::Raw::void)->coderef; 
 
 Use it elsewhere:
 

@@ -30,8 +30,23 @@ L<Archive::Libarchive::FFI>, but it may be useful in other projects.
 
 =cut
 
-my $lib = do {
-  my($module, $modlibname) = ('FFI::Util', __FILE__);
+=head1 FUNCTIONS
+
+=head2 locate_module_share_lib
+
+ my $path = locate_module_share_lib();
+ my $path = locate_module_share_lib($module_name, $module_filename);
+
+Returns the path to the shared library for the current module, or the
+module specified by C<$module_name> (example: Foo::Bar) 
+C<$module_filename>(example /full/path/Foo/Bar.pm).
+
+=cut
+
+sub locate_module_share_lib (;$)
+{
+  my($module, $modlibname) = @_;
+  ($module, $modlibname) = caller() unless defined $modlibname;
   my @modparts = split(/::/,$module);
   my $modfname = $modparts[-1];
   my $modpname = join('/',@modparts);
@@ -45,6 +60,8 @@ my $lib = do {
   }
   $file;
 };
+
+my $lib = locate_module_share_lib();
 
 *_lookup_type = FFI::Raw->new( $lib, 'lookup_type', FFI::Raw::str, FFI::Raw::str )->coderef;
 
@@ -82,8 +99,6 @@ foreach my $type (our @types)
     }
   }
 }
-
-=head1 FUNCTIONS
 
 =head2 scalar_to_buffer
 

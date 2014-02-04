@@ -14,6 +14,15 @@ or impossible in pure Perl.  It was originally intended to be used by
 
 # FUNCTIONS
 
+## locate\_module\_share\_lib
+
+    my $path = locate_module_share_lib();
+    my $path = locate_module_share_lib($module_name, $module_filename);
+
+Returns the path to the shared library for the current module, or the
+module specified by `$module_name` (example: Foo::Bar) 
+`$module_filename`(example /full/path/Foo/Bar.pm).
+
 ## scalar\_to\_buffer
 
     my($ptr, $size) = scalar_to_buffer $scalar;

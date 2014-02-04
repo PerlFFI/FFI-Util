@@ -8,8 +8,9 @@ Some useful pointer utilities when writing FFI modules
 
 # DESCRIPTION
 
-At the moment, this is a sort of proof of concept, and may not be
-all that well planned or thought out.
+This module provides some useful memory manipulation that is either difficult
+or impossible in pure Perl.  It was originally intended to be used by
+[Archive::Libarchive::FFI](https://metacpan.org/pod/Archive::Libarchive::FFI), but it may be useful in other projects.
 
 # FUNCTIONS
 
@@ -306,6 +307,48 @@ equivalent to
     uint64_t *ptr;
     uint64_t uint64;
     *ptr = uint64;
+
+## deref\_dev\_t\_get
+
+Alias for appropriate `derf_..._get` if dev\_t is provided by your compiler.
+
+## deref\_dev\_t\_set
+
+Alias for appropriate `derf_..._set` if dev\_t is provided by your compiler.
+
+## deref\_gid\_t\_get
+
+Alias for appropriate `derf_..._get` if gid\_t is provided by your compiler.
+
+## deref\_gid\_t\_set
+
+Alias for appropriate `derf_..._set` if gid\_t is provided by your compiler.
+
+## deref\_size\_t\_get
+
+Alias for appropriate `derf_..._get` if size\_t is provided by your compiler.
+
+## deref\_size\_t\_set
+
+Alias for appropriate `derf_..._set` if size\_t is provided by your compiler.
+
+## deref\_time\_t\_get
+
+Alias for appropriate `derf_..._get` if time\_t is provided by your compiler.
+
+## deref\_time\_t\_set
+
+Alias for appropriate `derf_..._set` if time\_t is provided by your compiler.
+
+## deref\_uid\_t\_get
+
+Alias for appropriate `derf_..._get` if uid\_t is provided by your compiler.
+
+## deref\_uid\_t\_set
+
+Alias for appropriate `derf_..._set` if uid\_t is provided by your compiler.
+
+\*/
 
 # AUTHOR
 

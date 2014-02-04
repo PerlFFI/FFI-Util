@@ -586,4 +586,47 @@ void deref_uint64_set(uint64_t *ptr, uint64_t value)
   *ptr = value;
 }
 
+/*
+
+=head2 deref_dev_t_get
+
+Alias for appropriate C<derf_..._get> if dev_t is provided by your compiler.
+
+=head2 deref_dev_t_set
+
+Alias for appropriate C<derf_..._set> if dev_t is provided by your compiler.
+
+=head2 deref_gid_t_get
+
+Alias for appropriate C<derf_..._get> if gid_t is provided by your compiler.
+
+=head2 deref_gid_t_set
+
+Alias for appropriate C<derf_..._set> if gid_t is provided by your compiler.
+
+=head2 deref_size_t_get
+
+Alias for appropriate C<derf_..._get> if size_t is provided by your compiler.
+
+=head2 deref_size_t_set
+
+Alias for appropriate C<derf_..._set> if size_t is provided by your compiler.
+
+=head2 deref_time_t_get
+
+Alias for appropriate C<derf_..._get> if time_t is provided by your compiler.
+
+=head2 deref_time_t_set
+
+Alias for appropriate C<derf_..._set> if time_t is provided by your compiler.
+
+=head2 deref_uid_t_get
+
+Alias for appropriate C<derf_..._get> if uid_t is provided by your compiler.
+
+=head2 deref_uid_t_set
+
+Alias for appropriate C<derf_..._set> if uid_t is provided by your compiler.
+
+*/
 

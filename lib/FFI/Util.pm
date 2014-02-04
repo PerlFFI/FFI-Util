@@ -24,8 +24,9 @@ use Exporter::Tidy
 
 =head1 DESCRIPTION
 
-At the moment, this is a sort of proof of concept, and may not be
-all that well planned or thought out.
+This module provides some useful memory manipulation that is either difficult
+or impossible in pure Perl.  It was originally intended to be used by
+L<Archive::Libarchive::FFI>, but it may be useful in other projects.
 
 =cut
 

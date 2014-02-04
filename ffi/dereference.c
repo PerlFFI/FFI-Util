@@ -158,6 +158,8 @@ equivalent to
  unsigned int unsigned_integer;
  *ptr = unsigned_integer;
 
+=cut
+
 */
 
 void deref_uint_set(unsigned int *ptr, unsigned int value)
@@ -197,6 +199,8 @@ equivalent to
  short *ptr;
  short short_integer;
  *ptr = short_integer;
+
+=cut
 
 */
 
@@ -238,6 +242,8 @@ equivalent to
  unsigned short unsigned_short_integer;
  *ptr = unsigned_short_integer;
 
+=cut
+
 */
 
 void deref_ushort_set(unsigned short *ptr, unsigned short value)
@@ -278,6 +284,8 @@ equivalent to
  long long_integer;
  *ptr = long_integer;
 
+=cut
+
 */
 
 void deref_long_set(long *ptr, long value) {
@@ -316,6 +324,8 @@ equivalent to
  unsigned long *ptr;
  unsigned long unsigned_long_integer;
  *ptr = unsigned_long_integer;
+
+=cut
 
 */
 
@@ -357,6 +367,8 @@ equivalent to
  char char_integer;
  *ptr = char_integer;
 
+=cut
+
 */
 
 void deref_char_set(char *ptr, char value)
@@ -396,6 +408,8 @@ equivalent to
  unsigned char *ptr;
  unsigned char unsigned_char_integer;
  *ptr = unsigned_char_integer;
+
+=cut
 
 */
 
@@ -437,6 +451,8 @@ equivalent to
  float single_float;
  *ptr = single_float;
 
+=cut
+
 */
 
 void deref_float_set(float *ptr, float value)
@@ -476,6 +492,8 @@ equivalent to
  double *ptr;
  double double_float;
  *ptr = double_float;
+
+=cut
 
 */
 
@@ -517,6 +535,8 @@ equivalent to
  int64_t int64;
  *ptr = int64;
 
+=cut
+
 */
 
 void deref_int64_set(int64_t *ptr, int64_t value)
@@ -556,6 +576,8 @@ equivalent to
  uint64_t *ptr;
  uint64_t uint64;
  *ptr = uint64;
+
+=cut
 
 */
 

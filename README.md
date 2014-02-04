@@ -107,15 +107,6 @@ equivalent to
     unsigned int unsigned_integer;
     *ptr = unsigned_integer;
 
-\*/
-
-void deref\_uint\_set(unsigned int \*ptr, unsigned int value)
-{
-  \*ptr = value;
-}
-
-/\*
-
 ## deref\_short\_get
 
     my $short_integer = deref_short_get($ptr);
@@ -135,15 +126,6 @@ equivalent to
     short *ptr;
     short short_integer;
     *ptr = short_integer;
-
-\*/
-
-void deref\_short\_set(short \*ptr, short value)
-{
-  \*ptr = value;
-}
-
-/\*
 
 ## deref\_ushort\_get
 
@@ -165,15 +147,6 @@ equivalent to
     unsigned short unsigned_short_integer;
     *ptr = unsigned_short_integer;
 
-\*/
-
-void deref\_ushort\_set(unsigned short \*ptr, unsigned short value)
-{
-  \*ptr = value;
-}
-
-/\*
-
 ## deref\_long\_get
 
     my $long_integer = deref_long_get($ptr);
@@ -193,14 +166,6 @@ equivalent to
     long *ptr;
     long long_integer;
     *ptr = long_integer;
-
-\*/
-
-void deref\_long\_set(long \*ptr, long value) {
-  \*ptr = value;
-}
-
-/\*
 
 ## deref\_ulong\_get
 
@@ -222,15 +187,6 @@ equivalent to
     unsigned long unsigned_long_integer;
     *ptr = unsigned_long_integer;
 
-\*/
-
-void deref\_ulong\_set(unsigned long \*ptr, unsigned long value)
-{
-  \*ptr = value;
-}
-
-/\*
-
 ## deref\_char\_get
 
     my $char_integer = deref_char_get($ptr);
@@ -250,15 +206,6 @@ equivalent to
     char *ptr;
     char char_integer;
     *ptr = char_integer;
-
-\*/
-
-void deref\_char\_set(char \*ptr, char value)
-{
-  \*ptr = value;
-}
-
-/\*
 
 ## deref\_uchar\_get
 
@@ -280,15 +227,6 @@ equivalent to
     unsigned char unsigned_char_integer;
     *ptr = unsigned_char_integer;
 
-\*/
-
-void deref\_uchar\_set(unsigned char \*ptr, unsigned char value)
-{
-  \*ptr = value;
-}
-
-/\*
-
 ## deref\_float\_get
 
     my $single_float = deref_float_get($ptr);
@@ -308,15 +246,6 @@ equivalent to
     float *ptr;
     float single_float;
     *ptr = single_float;
-
-\*/
-
-void deref\_float\_set(float \*ptr, float value)
-{
-  \*ptr = value;
-}
-
-/\*
 
 ## deref\_double\_get
 
@@ -338,15 +267,6 @@ equivalent to
     double double_float;
     *ptr = double_float;
 
-\*/
-
-void deref\_double\_set(float \*ptr, double value)
-{
-  \*ptr = value;
-}
-
-/\*
-
 ## deref\_int64\_get
 
     my $int64 = deref_int64_get($ptr);
@@ -367,15 +287,6 @@ equivalent to
     int64_t int64;
     *ptr = int64;
 
-\*/
-
-void deref\_int64\_set(int64\_t \*ptr, int64\_t value)
-{
-  \*ptr = value;
-}
-
-/\*
-
 ## deref\_uint64\_get
 
     my $uint64 = deref_uint64_get($ptr);
@@ -395,13 +306,6 @@ equivalent to
     uint64_t *ptr;
     uint64_t uint64;
     *ptr = uint64;
-
-\*/
-
-void deref\_uint64\_set(uint64\_t \*ptr, uint64\_t value)
-{
-  \*ptr = value;
-}
 
 # AUTHOR
 

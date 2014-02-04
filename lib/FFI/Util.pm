@@ -73,7 +73,7 @@ foreach my $type (our @types)
   
   foreach my $otype (qw( size_t time_t dev_t gid_t uid_t ))
   {
-    if(_lookup_type($otype) eq "_$type")
+    if(_lookup_type($otype) eq $type)
     {
       no strict 'refs';
       *{"deref_$otype\_get"} = \&{"deref_$type\_get"};

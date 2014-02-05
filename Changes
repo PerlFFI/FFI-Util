@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.03      2014-02-05 13:02:48 -0500
   - build fixes for MSWin32
 
 0.02      2014-02-04 13:05:48 -0500

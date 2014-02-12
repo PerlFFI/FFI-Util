@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.04      2014-02-12 15:52:19 -0500
   - added ffi_util.h header and FFI_UTIL_EXPORT macro (see Module::Build::FFI)
   - workaround for absolute paths and cygwin in FFI::Raw 0.27 (see FFI::Raw GH#39)
 

@@ -60,6 +60,10 @@ sub locate_module_share_lib (;$)
     $modlibname =~ s,[\\/][^\\/]+$,,;
     $file = "$modlibname/arch/auto/$modpname/$modfname.$Config::Config{dlext}";
   }
+  if($^O eq 'cygwin' && $FFI::Raw::VERSION eq '0.27')
+  {
+    return Cygwin::posix_to_win_path($file);
+  }
   $file;
 };
 

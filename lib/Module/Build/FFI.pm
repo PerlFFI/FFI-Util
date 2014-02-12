@@ -199,3 +199,16 @@ sub process_xs_files
 
 1;
 
+=head1 SEE ALSO
+
+=over 4
+
+=item L<FFI::Util>
+
+=item L<FFI::Raw>
+
+=item L<Module::Build>
+
+=back
+
+=cut

@@ -658,5 +658,17 @@ Alias for appropriate C<derf_..._get> if uid_t is provided by your compiler.
 
 Alias for appropriate C<derf_..._set> if uid_t is provided by your compiler.
 
+=head1 SEE ALSO
+
+=over 4
+
+=item L<Module::Build::FFI>
+
+=item L<FFI::Raw>
+
+=back
+
+=cut
+
 */
 

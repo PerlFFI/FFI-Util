@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - added ffi_util.h header and FFI_UTIL_EXPORT macro (see Module::Build::FFI)
+  - workaround for absolute paths and cygwin in FFI::Raw 0.27 (see FFI::Raw GH#39)
 
 0.03      2014-02-05 13:02:48 -0500
   - build fixes for MSWin32

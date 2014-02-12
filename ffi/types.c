@@ -1,3 +1,4 @@
+#include <ffi_util.h>
 #include "ffi_util_config.h"
 
 #define is_signed(type) (((type)-1) < 0)
@@ -12,7 +13,7 @@
   else if(sizeof(type) == sizeof(int64_t)) \
     return is_signed(type) ? "int64" : "uint64";
 
-const char *
+FFI_UTIL_EXPORT const char *
 lookup_type(const char *name)
 {
 #ifdef HAS_SIZE_T

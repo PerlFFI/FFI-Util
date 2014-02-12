@@ -5,6 +5,7 @@ pod_spelling_system:
   stopwords:
     - FFI
     - ffi
+    - DLLs
 
 pod_coverage:
   # format is "Class#method" or "Class", regex allowed

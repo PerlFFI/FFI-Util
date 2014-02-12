@@ -51,6 +51,7 @@ sub new
   }
   
   $args{extra_compiler_flags} = join ' ', @{ $cc->extra_compiler_flags };
+  $args{include_dirs} = 'share/include';
   
   $class->SUPER::new(%args);
 }

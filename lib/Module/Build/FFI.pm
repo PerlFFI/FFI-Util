@@ -8,14 +8,16 @@ use File::Spec;
 use File::Temp qw( tempdir );
 use File::Copy qw( copy cp );
 use File::Basename qw( basename );
+use File::ShareDir qw( dist_dir );
 
 # ABSTRACT: Build Perl extensions if C with FFI.
+# VERSION
 
 =head1 SYNOPSIS
 
 raw Build.PL:
 
- use Module::Build::FFI;
+ use Module::Build::FFI 0.04;
  Module::Build::FFI->new(
    module_name => 'Foo::Bar',
    ...
@@ -25,12 +27,16 @@ Dist::Zilla:
 
  [ModuleBuild]
  mb_class      = Module::Build::FFI
+ 
+ [Prereqs / ConfigureRequires]
+ Module::Build::FFI = 0.03
 
 Put your .c and .h files in ffi (ffi/example.c):
 
+ #include <ffi_util.h>
  #include <stdio.h>
  
- void print_hello(void)
+ FFI_UTIL_EXPORT void print_hello(void)
  {
    printf("hello world\n");
  }
@@ -55,6 +61,28 @@ Use it elsewhere:
 
 Module::Build variant for writing Perl extensions in C with FFI.
 
+=head1 MACROS
+
+If you include the header file C<ffi_util.h> you can use these macros.
+The header file was first included with version L<FFI::Util> / 
+L<Module::Build::FFI> 0.04, so you should be sure to make that a 
+prerequisite in either your C<Build.PL> or C<dist.ini> (or both).
+
+=over 4
+
+=item FFI_UTIL_VERSION
+
+This is the L<FFI::Util> version number multiplied by 100 (so it should be
+4 for 0.04 and 101 for 1.01).
+
+=item FFI_UTIL_EXPORT
+
+The appropriate attribute needed to export functions from shared libraries
+/ DLLs.  For now this is only necessary on Windows when using Microsoft
+Visual C++, but it may be necessary elsewhere in the future.
+
+=back
+
 =cut
 
 sub new
@@ -63,6 +91,20 @@ sub new
   
   $args{c_source} ||= 'ffi';
   $args{requires}{'Alien::o2dll'} = '0' if $^O eq 'MSWin32';
+  
+  my $dir = eval { File::Spec->catdir(dist_dir('FFI-Util'), 'include') };
+  unless($@)
+  {
+    if(defined $args{include_dirs} && !ref $args{include_dirs})
+    {
+      $args{include_dirs} = [ $args{include_dirs} ];
+    }
+    elsif(!defined $args{include_dirs})
+    {
+      $args{include_dirs} = [];
+    }  
+    push @{$args{include_dirs}}, $dir;
+  }
   
   $class->SUPER::new(%args);
 }
@@ -83,6 +125,7 @@ sub link_c
 
   if($^O eq 'MSWin32')
   {
+    # TODO: rm dep on Alien::o2dll
     require Alien::o2dll;
     my $dir = tempdir( CLEANUP => 1 );
     

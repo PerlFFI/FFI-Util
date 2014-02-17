@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.05      2014-02-17 13:53:00 -0500
   - rm dep on Alien::o2dll for MSWin32
 
 0.04      2014-02-12 15:52:19 -0500

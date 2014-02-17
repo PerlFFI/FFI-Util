@@ -5,7 +5,7 @@ use warnings;
 use constant;
 use v5.10;
 use Config (); # TODO: way to get dlext without loading this
-use FFI::Raw 0.27;
+use FFI::Raw 0.28;
 use Scalar::Util qw( refaddr );
 use Exporter::Tidy
   deref => do {
@@ -59,10 +59,6 @@ sub locate_module_share_lib (;$)
   {
     $modlibname =~ s,[\\/][^\\/]+$,,;
     $file = "$modlibname/arch/auto/$modpname/$modfname.$Config::Config{dlext}";
-  }
-  if($^O eq 'cygwin' && $FFI::Raw::VERSION eq '0.27')
-  {
-    return Cygwin::posix_to_win_path($file);
   }
   $file;
 };

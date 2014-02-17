@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - rm dep on Alien::o2dll for MSWin32
 
 0.04      2014-02-12 15:52:19 -0500
   - added ffi_util.h header and FFI_UTIL_EXPORT macro (see Module::Build::FFI)

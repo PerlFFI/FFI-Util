@@ -14,8 +14,7 @@ sub munge_files
   
   my $version = $self->zilla->version;
   $version =~ s{_.*$}{}; # trim off the tril portion of the version number
-  $version *= 100;
-  $self->log_fatal("integer version doesn't match float version") if $version != int $version;
+  $version = int( $version * 100 );
   $version = sprintf "%03s", $version;
   
   if($content =~ s{%%FFI_UTIL_VERSION%%}{$version})

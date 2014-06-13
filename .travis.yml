@@ -9,7 +9,7 @@ install:
   - cpanm -n FFI::Raw
   - cpanm -n Math::Int64
   - cpanm -n Pod::Abstract
-  - cpanm -n ExtUtils::CChecker
+  - cpanm -n ExtUtils::CChecker Module::Build
   - cpanm -n Test::CPAN::Changes Test::EOL Test::Fixme Test::NoTabs Test::Pod::Spelling::CommonMistakes Test::Spelling Test::Strict Test::Version || true
 
 perl:

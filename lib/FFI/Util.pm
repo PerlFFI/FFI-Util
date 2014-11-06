@@ -3,7 +3,7 @@ package FFI::Util;
 use strict;
 use warnings;
 use constant;
-use v5.10;
+use 5.010;
 use Config (); # TODO: way to get dlext without loading this
 use FFI::Raw 0.28;
 use Scalar::Util qw( refaddr );

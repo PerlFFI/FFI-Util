@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.08      2014-11-06 08:23:37 -0500
   - add support for 64 bit Strawberry Perl
   - Use function call instead of function dispatch for very slight
     performance improvement

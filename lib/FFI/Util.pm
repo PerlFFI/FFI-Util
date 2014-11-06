@@ -81,14 +81,16 @@ foreach my $type (our @types)
   my $code_type = eval qq{ FFI::Raw::$type };
   do {
     my $name = "deref_$type\_get";
+    my $ffi = FFI::Raw->new( $lib, $name, $code_type, FFI::Raw::ptr );
     no strict 'refs';
-    *{$name} = FFI::Raw->new( $lib, $name, $code_type, FFI::Raw::ptr )->coderef;
+    *{$name} = sub { FFI::Raw::call($ffi, @_) };
   };
   
   do {
     my $name = "deref_$type\_set";
+    my $ffi = FFI::Raw->new( $lib, $name, FFI::Raw::void, FFI::Raw::ptr, $code_type );
     no strict 'refs';
-    *{$name} = FFI::Raw->new( $lib, $name, FFI::Raw::void, FFI::Raw::ptr, $code_type )->coderef;
+    *{$name} = sub { FFI::Raw::call($ffi, @_) };
   };
   
   foreach my $otype (qw( size_t time_t dev_t gid_t uid_t ))

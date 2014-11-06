@@ -111,9 +111,15 @@ and the size of the scalar in bytes.
 
 =cut
 
+use constant _incantation => 
+  $^O eq 'MSWin32' && $Config::Config{archname} =~ /MSWin32-x64/
+  ? 'Q'
+  : 'L!';
+
+
 sub scalar_to_buffer ($)
 {
-  (unpack('L!', pack 'P', $_[0]), do { use bytes; length $_[0] });
+  (unpack(_incantation, pack 'P', $_[0]), do { use bytes; length $_[0] });
 }
 
 =head2 buffer_to_scalar
@@ -127,7 +133,7 @@ with the same content and size.
 
 sub buffer_to_scalar ($$)
 {
-  unpack 'P'.$_[1], pack 'L!', defined $_[0] ? $_[0] : 0;
+  unpack 'P'.$_[1], pack _incantation, defined $_[0] ? $_[0] : 0;
 }
 
 1;

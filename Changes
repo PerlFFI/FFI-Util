@@ -1,8 +1,11 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.09      2015-01-16 12:05:49 -0500
   - use FFI::Platypus instead of FFI::Raw
   - maintain FFI::Raw interop
+  - Non CPAN release
 
 0.08      2014-11-06 08:23:37 -0500
   - add support for 64 bit Strawberry Perl

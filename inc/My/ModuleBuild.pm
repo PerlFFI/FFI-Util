@@ -2,6 +2,7 @@ package My::ModuleBuild;
 
 use strict;
 use warnings;
+use 5.008001;
 use ExtUtils::CChecker;
 use File::Spec;
 use File::Basename ();

@@ -360,7 +360,7 @@ Alias for appropriate `derf_..._set` if uid\_t is provided by your compiler.
 # SEE ALSO
 
 - [Module::Build::FFI](https://metacpan.org/pod/Module::Build::FFI)
-- [FFI::Raw](https://metacpan.org/pod/FFI::Raw)
+- [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus)
 
 # AUTHOR
 

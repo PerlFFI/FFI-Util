@@ -3,9 +3,9 @@ package FFI::Util;
 use strict;
 use warnings;
 use constant;
-use 5.010;
-use Config (); # TODO: way to get dlext without loading this
-use FFI::Raw 0.28;
+use 5.008001;
+use FFI::Platypus;
+use FFI::Platypus::Buffer ();
 use Scalar::Util qw( refaddr );
 use Exporter::Tidy
   deref => do {
@@ -47,6 +47,7 @@ C<$module_filename>(example /full/path/Foo/Bar.pm).
 
 sub locate_module_share_lib (;$)
 {
+  require Config;
   my($module, $modlibname) = @_;
   ($module, $modlibname) = caller() unless defined $modlibname;
   my @modparts = split(/::/,$module);
@@ -63,39 +64,68 @@ sub locate_module_share_lib (;$)
   $file;
 };
 
-my $lib = locate_module_share_lib();
+our $ffi = FFI::Platypus->new;
+$ffi->lib(locate_module_share_lib());
+$ffi->attach( [lookup_type => '_lookup_type'] => ['string'] => 'string');
 
-*_lookup_type = FFI::Raw->new( $lib, 'lookup_type', FFI::Raw::str, FFI::Raw::str )->coderef;
+# nicked this from FFI/Raw.pm
+sub _ffi_void ()     { ord 'v' }
+sub _ffi_int ()      { ord 'i' }
+sub _ffi_uint ()     { ord 'I' }
+sub _ffi_short ()    { ord 'z' }
+sub _ffi_ushort ()   { ord 'Z' }
+sub _ffi_long ()     { ord 'l' }
+sub _ffi_ulong ()    { ord 'L' }
+sub _ffi_int64 ()    { ord 'x' }
+sub _ffi_uint64 ()   { ord 'X' }
+sub _ffi_char ()     { ord 'c' }
+sub _ffi_uchar ()    { ord 'C' }
+sub _ffi_float ()    { ord 'f' }
+sub _ffi_double ()   { ord 'd' }
+sub _ffi_str ()      { ord 's' }
+sub _ffi_ptr ()      { ord 'p' }
 
 foreach my $type (qw( size_t time_t dev_t gid_t uid_t ))
 {
   my $real_type = _lookup_type($type);
   if($real_type)
   {
-    constant->import("_$type" => eval "FFI::Raw::$real_type\()");
+    constant->import("_$type" => eval "_ffi_$real_type\()");
   }
+}
+
+$ffi->type( void             => 'raw_void'   );
+$ffi->type( string           => 'raw_str'    );
+$ffi->type( int              => 'raw_int'    );
+$ffi->type( 'unsigned int'   => 'raw_uint'   );
+$ffi->type( short            => 'raw_short'  );
+$ffi->type( 'unsigned short' => 'raw_ushort' );
+$ffi->type( long             => 'raw_long'   );
+$ffi->type( 'unsigned long'  => 'raw_ulong'  );
+$ffi->type( 'uint64'         => 'raw_uint64' );
+$ffi->type( 'sint64'         => 'raw_int64'  );
+$ffi->type( 'signed char'    => 'raw_char'   );
+$ffi->type( 'unsigned char'  => 'raw_uchar'  );
+$ffi->type( 'float'          => 'raw_float'  );
+$ffi->type( 'double'         => 'raw_double' );
+
+$ffi->custom_type(opaque => raw_ptr => {
+  perl_to_ffi => sub { ref($_[0]) ? ${$_[0]} : $_[0] },
+  ffi_to_perl => sub { $_[0] },
+});
+
+for (qw( ptr str int uint short ushort long ulong char uchar float double int64 uint64 ))
+{
+  $ffi->attach( "deref_${_}_get" => ['raw_ptr']          => "raw_$_" => '$'  );
+  $ffi->attach( "deref_${_}_set" => ['raw_ptr',"raw_$_"] => 'void'   => '$$' );
 }
 
 foreach my $type (our @types)
 {
-  my $code_type = eval qq{ FFI::Raw::$type };
-  do {
-    my $name = "deref_$type\_get";
-    my $ffi = FFI::Raw->new( $lib, $name, $code_type, FFI::Raw::ptr );
-    no strict 'refs';
-    *{$name} = sub { FFI::Raw::call($ffi, @_) };
-  };
-  
-  do {
-    my $name = "deref_$type\_set";
-    my $ffi = FFI::Raw->new( $lib, $name, FFI::Raw::void, FFI::Raw::ptr, $code_type );
-    no strict 'refs';
-    *{$name} = sub { FFI::Raw::call($ffi, @_) };
-  };
-  
+  my $code_type = eval qq{ _ffi_$type };
   foreach my $otype (qw( size_t time_t dev_t gid_t uid_t ))
   {
-    if((_lookup_type($otype)//'') eq $type)
+    if((_lookup_type($otype)||'') eq $type)
     {
       no strict 'refs';
       *{"deref_$otype\_get"} = \&{"deref_$type\_get"};

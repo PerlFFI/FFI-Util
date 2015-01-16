@@ -1,11 +1,25 @@
 use strict;
 use warnings;
-use Test::More tests => 1;
+use Test::More tests => 2;
 use FFI::Util qw( deref_ptr_set deref_ptr_get );
-use FFI::Raw;
+use FFI::Platypus::Memory qw( malloc sizeof );
 use Config;
 
-my $ptr = FFI::Raw::MemPtr->new($Config{ivsize});
+subtest 'FFI::Raw' => sub {
+  plan skip_all => 'subtest requires FFI::Raw' unless eval q{ use FFI::Raw; 1 };
+  plan tests => 1;
 
-deref_ptr_set $ptr, 42;
-is deref_ptr_get($ptr), 42;
+  my $ptr = FFI::Raw::MemPtr->new($Config{ivsize});
+  deref_ptr_set $ptr, 42;
+  is deref_ptr_get($ptr), 42;
+
+};
+
+subtest 'FFI::Platypus' => sub {
+  plan tests => 1;
+
+  my $ptr = malloc sizeof('opaque');
+  deref_ptr_set $ptr, 42;
+  is deref_ptr_get($ptr), 42;
+
+};

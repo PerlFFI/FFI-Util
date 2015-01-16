@@ -47,12 +47,12 @@ Attach it in your main module:
 
  package Foo::Bar;
  
- use FFI::Raw;
+ use FFI::Platypus::Declare qw( void );
  use FFI::Util qw( locate_module_share_lib );
  
  my $lib = locate_module_share_lib();
-
- *print_hello = FFI::Raw->new($lib, 'hello_world', FFI::Raw::void)->coderef; 
+ 
+ function hello_world => [] => void;
 
 Use it elsewhere:
 
@@ -205,7 +205,7 @@ sub process_xs_files
 
 =item L<FFI::Util>
 
-=item L<FFI::Raw>
+=item L<FFI::Platypus>
 
 =item L<Module::Build>
 

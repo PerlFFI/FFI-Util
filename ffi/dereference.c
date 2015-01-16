@@ -664,7 +664,7 @@ Alias for appropriate C<derf_..._set> if uid_t is provided by your compiler.
 
 =item L<Module::Build::FFI>
 
-=item L<FFI::Raw>
+=item L<FFI::Platypus>
 
 =back
 

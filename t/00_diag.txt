@@ -1,5 +1,7 @@
 Exporter::Tidy
 ExtUtils::CChecker
+FFI::Platypus
+FFI::Platypus::Buffer
 FFI::Raw
 File::ShareDir
 Math::Int64

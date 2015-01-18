@@ -110,8 +110,8 @@ $ffi->type( 'float'          => 'raw_float'  );
 $ffi->type( 'double'         => 'raw_double' );
 
 $ffi->custom_type(opaque => raw_ptr => {
-  perl_to_ffi => sub { ref($_[0]) ? ${$_[0]} : $_[0] },
-  ffi_to_perl => sub { $_[0] },
+  perl_to_native => sub { ref($_[0]) ? ${$_[0]} : $_[0] },
+  native_to_perl => sub { $_[0] },
 });
 
 for (qw( ptr str int uint short ushort long ulong char uchar float double int64 uint64 ))

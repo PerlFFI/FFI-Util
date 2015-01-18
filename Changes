@@ -1,6 +1,7 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - FFI::Platypus 0.09 compatability
 
 0.09      2015-01-16 12:05:49 -0500
   - use FFI::Platypus instead of FFI::Raw

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.10      2015-01-19 03:10:12 -0500
   - FFI::Platypus 0.09 compatability
 
 0.09      2015-01-16 12:05:49 -0500

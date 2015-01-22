@@ -6,7 +6,7 @@ install:
   - cpanm -n Dist::Zilla
   - dzil authordeps --missing | grep -v inc::Doco |cpanm -n
   - cpanm -n Exporter::Tidy
-  - cpanm -n https://dist.wdlabs.com/FFI-Platypus-0.09.tar.gz
+  - cpanm -n FFI::Platypus
   - cpanm -n Math::Int64
   - cpanm -n Pod::Abstract
   - cpanm -n ExtUtils::CChecker Module::Build

@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.11      2015-01-22 06:46:55 -0500
+  - CPAN release identical to 0.10
+
 0.10      2015-01-19 03:10:12 -0500
   - FFI::Platypus 0.09 compatability
   - Non CPAN release

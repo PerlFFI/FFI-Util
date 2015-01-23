@@ -2,7 +2,6 @@ Exporter::Tidy
 ExtUtils::CChecker
 FFI::Platypus
 FFI::Raw
-File::ShareDir
 Math::Int64
 Module::Build
 Test::More

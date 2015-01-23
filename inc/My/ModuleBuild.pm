@@ -6,14 +6,6 @@ use 5.008001;
 use ExtUtils::CChecker;
 use File::Spec;
 use File::Basename ();
-use lib File::Spec->rel2abs(
-  File::Spec->catdir(
-    File::Basename::dirname(__FILE__), 
-    File::Spec->updir,
-    File::Spec->updir,
-    'lib',
-  ),
-);
 use base qw( Module::Build::FFI );
 
 sub new
@@ -52,7 +44,6 @@ sub new
   }
   
   $args{extra_compiler_flags} = join ' ', @{ $cc->extra_compiler_flags };
-  $args{include_dirs} = 'share/include';
   
   $class->SUPER::new(%args);
 }

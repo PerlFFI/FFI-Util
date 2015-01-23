@@ -69,7 +69,7 @@ sub locate_module_share_lib (;$$)
 };
 
 our $ffi = FFI::Platypus->new;
-$ffi->lib(locate_module_share_lib());
+$ffi->package;
 $ffi->attach( [lookup_type => '_lookup_type'] => ['string'] => 'string');
 
 # nicked this from FFI/Raw.pm

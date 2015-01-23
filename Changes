@@ -1,8 +1,6 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
-
-0.11_01   2015-01-23 12:16:29 -0500
   - remove Module::Build::FFI
     it is now part of FFI::Platypus
 

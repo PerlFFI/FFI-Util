@@ -8,6 +8,10 @@ Some useful pointer utilities when writing FFI modules
 
 # DESCRIPTION
 
+**Note**: This module has largely been obsoleted by [FFI::Platypus](https://metacpan.org/pod/FFI::Platypus), which
+I recommend that you use instead of this module.  This module may be removed
+from CPAN at a future date, but not before 31 January 2017.
+
 This module provides some useful memory manipulation that is either difficult
 or impossible in pure Perl.  It was originally intended to be used by
 [Archive::Libarchive::FFI](https://metacpan.org/pod/Archive::Libarchive::FFI), but it may be useful in other projects.

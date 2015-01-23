@@ -26,6 +26,10 @@ use Exporter::Tidy
 
 =head1 DESCRIPTION
 
+B<Note>: This module has largely been obsoleted by L<FFI::Platypus>, which
+I recommend that you use instead of this module.  This module may be removed
+from CPAN at a future date, but not before 31 January 2017.
+
 This module provides some useful memory manipulation that is either difficult
 or impossible in pure Perl.  It was originally intended to be used by
 L<Archive::Libarchive::FFI>, but it may be useful in other projects.

@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - remove Module::Build::FFI
+    it is now part of FFI::Platypus
 
 0.11      2015-01-22 06:46:55 -0500
   - CPAN release identical to 0.10

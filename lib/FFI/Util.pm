@@ -49,7 +49,7 @@ C<$module_filename>(example /full/path/Foo/Bar.pm).
 
 =cut
 
-sub locate_module_share_lib (;$)
+sub locate_module_share_lib (;$$)
 {
   require Config;
   my($module, $modlibname) = @_;

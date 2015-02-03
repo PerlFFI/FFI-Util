@@ -4,6 +4,7 @@ use strict;
 use warnings;
 use constant;
 use 5.008001;
+use Config;
 use FFI::Platypus;
 use FFI::Platypus::Buffer ();
 use Scalar::Util qw( refaddr );
@@ -51,7 +52,7 @@ C<$module_filename>(example /full/path/Foo/Bar.pm).
 
 sub locate_module_share_lib (;$$)
 {
-  require Config;
+  require FFI::Platypus::ConfigData;
   my($module, $modlibname) = @_;
   ($module, $modlibname) = caller() unless defined $modlibname;
   my @modparts = split(/::/,$module);
@@ -59,13 +60,17 @@ sub locate_module_share_lib (;$$)
   my $modpname = join('/',@modparts);
   my $c = @modparts;
   $modlibname =~ s,[\\/][^\\/]+$,, while $c--;    # Q&D basename
-  my $file = "$modlibname/auto/$modpname/$modfname.$Config::Config{dlext}";
-  unless(-e $file)
+  foreach my $dlext (@{ FFI::Platypus::ConfigData->config('config_dlext') })
   {
-    $modlibname =~ s,[\\/][^\\/]+$,,;
-    $file = "$modlibname/arch/auto/$modpname/$modfname.$Config::Config{dlext}";
+    my $file = "$modlibname/auto/$modpname/$modfname.$dlext";
+    unless(-e $file)
+    {
+      $modlibname =~ s,[\\/][^\\/]+$,,;
+      $file = "$modlibname/arch/auto/$modpname/$modfname.$dlext";
+    }
+    return $file if -e $file;
   }
-  $file;
+  ();
 };
 
 our $ffi = FFI::Platypus->new;
@@ -148,7 +153,7 @@ and the size of the scalar in bytes.
 =cut
 
 use constant _incantation => 
-  $^O eq 'MSWin32' && $Config::Config{archname} =~ /MSWin32-x64/
+  $^O eq 'MSWin32' && $Config{archname} =~ /MSWin32-x64/
   ? 'Q'
   : 'L!';
 

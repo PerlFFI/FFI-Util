@@ -2,6 +2,10 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.14      2015-02-03 13:48:55 -0500
+  - Accept multiple dlext
+    See https://github.com/plicease/FFI-Platypus/issues/29
+
 0.12      2015-01-23 16:48:30 -0500
   - remove Module::Build::FFI
     it is now part of FFI::Platypus

@@ -1,6 +1,9 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+  - Officially marked as deprecated.  Please consider
+    using FFI::Platypus instead which has a much richer
+    interface for dealing with pointers and FFI.
 
 0.15      2015-08-07 08:11:46 -0400
   - Dist meta updates only

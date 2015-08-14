@@ -18,7 +18,7 @@ use Exporter::Tidy
   locate_module_share_lib => [qw( locate_module_share_lib )],
 ;
 
-# ABSTRACT: Some useful pointer utilities when writing FFI modules
+# ABSTRACT: Some useful pointer utilities when writing FFI modules (Deprecated)
 # VERSION
 
 =head1 SYNOPSIS

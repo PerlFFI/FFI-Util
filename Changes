@@ -1,6 +1,8 @@
 Revision history for {{$dist->name}}
 
 {{$NEXT}}
+
+0.16      2015-08-14 06:01:10 -0400
   - Officially marked as deprecated.  Please consider
     using FFI::Platypus instead which has a much richer
     interface for dealing with pointers and FFI.

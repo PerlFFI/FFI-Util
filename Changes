@@ -26,8 +26,8 @@ Revision history for {{$dist->name}}
   - Non CPAN release
 
 0.09      2015-01-16 12:05:49 -0500
-  - use FFI::Platypus instead of FFI::Raw
-  - maintain FFI::Raw interop
+  - use FFI::Platypus instead of older FFI library
+  - maintain old FFI library interop
   - Non CPAN release
 
 0.08      2014-11-06 08:23:37 -0500
@@ -40,14 +40,14 @@ Revision history for {{$dist->name}}
 
 0.06      2014-02-21 16:11:27 -0500
   - avoid hang in diagnostic on FreeBSD caused by
-    combination of EV and FFI::Raw
+    combination of EV and old FFI library
 
 0.05      2014-02-17 13:53:00 -0500
   - rm dep on Alien::o2dll for MSWin32
 
 0.04      2014-02-12 15:52:19 -0500
   - added ffi_util.h header and FFI_UTIL_EXPORT macro (see Module::Build::FFI)
-  - workaround for absolute paths and cygwin in FFI::Raw 0.27 (see FFI::Raw GH#39)
+  - workaround for absolute paths and cygwin in old FFI library
 
 0.03      2014-02-05 13:02:48 -0500
   - build fixes for MSWin32

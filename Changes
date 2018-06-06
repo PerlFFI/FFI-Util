@@ -2,6 +2,9 @@ Revision history for {{$dist->name}}
 
 {{$NEXT}}
 
+0.17      2018-06-06 09:19:31 -0400
+  - Administrative: moving to Perl5-FFI org on github
+
 0.16      2015-08-14 06:01:10 -0400
   - Officially marked as deprecated.  Please consider
     using FFI::Platypus instead which has a much richer

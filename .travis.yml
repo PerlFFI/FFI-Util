@@ -1,4 +1,4 @@
-wlanguage: perl
+language: perl
 
 sudo: false
 

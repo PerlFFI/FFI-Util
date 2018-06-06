@@ -13,7 +13,6 @@ $modules{$_} = $_ for qw(
   Exporter::Tidy
   ExtUtils::CChecker
   FFI::Platypus
-  FFI::Raw
   Math::Int64
   Module::Build
   Module::Build::FFI

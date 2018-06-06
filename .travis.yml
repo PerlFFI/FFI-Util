@@ -1,4 +1,4 @@
-language: perl
+wlanguage: perl
 
 sudo: false
 
@@ -23,6 +23,11 @@ perl:
   - "5.18"
   - "5.20"
   - "5.22"
+  - "5.24"
+  - "5.26"
 
 script: dzil test -v
 
+env:
+  global:
+    - PERL_USE_UNSAFE_INC=0

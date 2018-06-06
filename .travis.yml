@@ -9,7 +9,8 @@ addons:
 
 install:
   - cpanm -n Dist::Zilla
-  - dzil authordeps --missing | grep -v inc::Doco |cpanm -n
+  - dzil -I. authordeps --missing | grep -v inc::Doco |cpanm -n
+  - dzil -I. listdeps   --missing | grep -v inc::Doco |cpanm -n
   - cpanm -n Exporter::Tidy
   - cpanm -n FFI::Platypus
   - cpanm -n Math::Int64

@@ -1,33 +1,39 @@
-language: perl
+language: minimal
+dist: xenial
+services:
+  - docker
 
-sudo: false
-
-addons:
-  apt:
-    packages:
-      - libffi-dev
+before_install:
+  - curl https://raw.githubusercontent.com/plicease/cip/main/bin/travis-bootstrap | bash
+  - cip before-install
 
 install:
-  - cpanm -n Dist::Zilla Pod::Abstract
-  - dzil -I. authordeps --missing | grep -v inc::Doco |cpanm -n
-  - dzil -I. listdeps   --missing | grep -v inc::Doco |cpanm -n
-  - cpanm -n Exporter::Tidy
-  - cpanm -n FFI::Platypus
-  - cpanm -n Math::Int64
-  - cpanm -n Pod::Abstract 
-  - cpanm -n ExtUtils::CChecker Module::Build
+  - cip diag
+  - cip install
 
-perl:
-  - "5.14"
-  - "5.16"
-  - "5.18"
-  - "5.20"
-  - "5.22"
-  - "5.24"
-  - "5.26"
+script:
+  - cip script
 
-script: dzil test -v
+jobs:
+  include:
+    - env: CIP_TAG=5.31
+    - env: CIP_TAG=5.30
+    - env: CIP_TAG=5.28
+    - env: CIP_TAG=5.26
+    - env: CIP_TAG=5.24
+    - env: CIP_TAG=5.22
+    - env: CIP_TAG=5.20
+    - env: CIP_TAG=5.18
+    - env: CIP_TAG=5.16
+    - env: CIP_TAG=5.14
+    - env: CIP_TAG=5.12
+    - env: CIP_TAG=5.10
+    - env: CIP_TAG=5.8
 
-env:
-  global:
-    - PERL_USE_UNSAFE_INC=0
+branches:
+  only:
+    - main
+
+cache:
+  directories:
+    - "$HOME/.cip"
